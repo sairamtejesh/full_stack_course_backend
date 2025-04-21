@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import check_users, api_root
+from .views import check_users
 
 urlpatterns = [
     # Root & Debug

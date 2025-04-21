@@ -2,6 +2,10 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'course_platform_backend.settings')
+import pprint
+from django.conf import settings
+pprint.pprint(settings.DATABASES)
 
 
 def main():
