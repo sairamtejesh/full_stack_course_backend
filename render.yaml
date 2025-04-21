@@ -4,7 +4,7 @@ services:
     env: python
     buildCommand: |
       pip install -r requirements.txt
-      python manage.py migrate
+      python manage.py run_initial_setup
     startCommand: gunicorn course_platform_backend.wsgi:application
     envVars:
       - key: DJANGO_SECRET_KEY
