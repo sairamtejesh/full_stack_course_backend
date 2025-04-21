@@ -5,7 +5,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
 from .models import Course, Video, UserProfile
@@ -117,7 +117,6 @@ def unlock_course(request, course_id):
     if profile.unlocked_courses.filter(id=course_id).exists():
         return Response({'message': 'Course already unlocked', 'coins': profile.coins})
 
-    # Safely cast coin_price to int, fallback to 25
     try:
         cost = int(course.coin_price)
     except (TypeError, ValueError):
@@ -134,3 +133,16 @@ def unlock_course(request, course_id):
         'message': f'{course.title} unlocked successfully',
         'coins': profile.coins
     })
+
+# -------------------------------
+# Temporary Debug Endpoint
+# -------------------------------
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def check_users(request):
+    try:
+        count = User.objects.count()
+        return Response({'users': count})
+    except Exception as e:
+        return Response({'error': str(e)})
