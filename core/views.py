@@ -146,3 +146,15 @@ def check_users(request):
         return Response({'users': count})
     except Exception as e:
         return Response({'error': str(e)})
+
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+@api_view(['GET'])
+def api_root(request):
+    return Response({
+        "message": "Welcome to Course Platform API 🎓",
+        "status": "online",
+        "version": "v1"
+    })
